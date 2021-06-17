@@ -3,11 +3,13 @@ package com.bridgelabz;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 
 public class CensusAnalyserTest {
 
     private static final String CORRECT_FILE_PATH = "./src/test/resources/IndiaStateCensusData.csv";
+    private static final String WRONG_FILE_PATH = "./src/main/resources/IndiaStateCensusData.csv";
 
 
     @Test
@@ -19,4 +21,21 @@ public class CensusAnalyserTest {
         } catch (CensusAnalyserException e) {
         }
     }
+
+    @Test
+    public void givenWrongFilePthThrowCustomException() {
+
+        try{
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            ExpectedException exceptionRule = ExpectedException.none();
+            exceptionRule.expect(CensusAnalyserException.class);
+            censusAnalyser.loadIndiaCensusData(WRONG_FILE_PATH);
+        } catch (CensusAnalyserException e) {
+            System.out.println(e.type);
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.CSV_FILE_INVALID,e.type);
+
+
+        }
+    }
+
 }
