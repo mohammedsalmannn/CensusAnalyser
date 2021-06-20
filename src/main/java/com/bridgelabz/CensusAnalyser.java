@@ -19,8 +19,16 @@ public class CensusAnalyser {
             Iterator<IndianCensusCSV> censusCSVIterator = csvToBean.iterator();
             Iterable<IndianCensusCSV> csvIterable = () -> censusCSVIterator;
             return (int) StreamSupport.stream(csvIterable.spliterator(), false).count();
-        } catch (IOException e) {
-            throw new CensusAnalyserException("InValid File Or Type", CensusAnalyserException.ExceptionType.CSV_FILE_INVALID);
+
+        }catch (IOException exception) {
+            throw new CensusAnalyserException(exception.getMessage(), CensusAnalyserException.ExceptionType.NOT_A_CSV_TYPE);
         }
+        catch (IllegalStateException e) {
+            throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.FILE_PROBLEM);
+        }
+        catch (RuntimeException e) {
+            throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.CSV_FILE_INVALID);
+        }
+
     }
 }
