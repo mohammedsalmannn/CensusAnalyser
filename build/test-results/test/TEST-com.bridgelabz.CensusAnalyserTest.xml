@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.bridgelabz.CensusAnalyserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-06-20T03:55:15" hostname="DESKTOP-T79M02P" time="0.028">
+<testsuite name="com.bridgelabz.CensusAnalyserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-06-20T04:42:05" hostname="DESKTOP-T79M02P" time="0.017">
   <properties/>
-  <testcase name="givenWrongFilePthThrowCustomException" classname="com.bridgelabz.CensusAnalyserTest" time="0.028"/>
-  <system-out><![CDATA[FILE_PROBLEM
-]]></system-out>
+  <testcase name="givenIndiaStateCode_WhenWrongType_ShouldThrowRunTimeException" classname="com.bridgelabz.CensusAnalyserTest" time="0.017"/>
+  <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

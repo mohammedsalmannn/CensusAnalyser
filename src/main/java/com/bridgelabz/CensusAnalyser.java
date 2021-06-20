@@ -11,15 +11,16 @@ import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.stream.StreamSupport;
 
-public class CensusAnalyser {
-    public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException {
+public class CensusAnalyser<E extends Comparable> {
+    public  static <E extends Comparable > long loadIndiaCensusData (String csvFilePath) throws CensusAnalyserException {
         try {
             Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
-            CsvToBeanBuilder<IndianCensusCSV> csvToBeanBuilder = new CsvToBeanBuilder<>(reader);
-            CsvToBean<IndianCensusCSV> csvToBean = csvToBeanBuilder.build();
-            Iterator<IndianCensusCSV> censusCSVIterator = csvToBean.iterator();
-            Iterable<IndianCensusCSV> csvIterable = () -> censusCSVIterator;
-            return (int) StreamSupport.stream(csvIterable.spliterator(), false).count();
+            CsvToBeanBuilder<E> csvToBeanBuilder = new CsvToBeanBuilder<>(reader);
+            CsvToBean<E> csvToBean = csvToBeanBuilder.build();
+            Iterator<E> censusCSVIterator = csvToBean.iterator();
+            Iterable<E> csvIterable = () -> censusCSVIterator;
+            Long count = StreamSupport.stream(csvIterable.spliterator(), false).count();
+            return  count;
 
         } catch (NoSuchFileException e) {
             throw new CensusAnalyserException(e.getMessage(),
@@ -33,12 +34,10 @@ public class CensusAnalyser {
         }
     }
 
-    public int loadIndiaStateCode(String csvFilePath) throws CensusAnalyserException {
+    /*public int loadIndiaStateCode(String csvFilePath) throws CensusAnalyserException {
         try {
             Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
             CsvToBeanBuilder<IndianStateCode> csvToBeanBuilder = new CsvToBeanBuilder<>(reader);
-            csvToBeanBuilder.withType(IndianStateCode.class);
-            csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
             CsvToBean<IndianStateCode> csvToBean = csvToBeanBuilder.build();
             Iterator<IndianStateCode> censusCSVIterator = csvToBean.iterator();
             Iterable<IndianStateCode> csvIterable = () -> censusCSVIterator;
@@ -53,5 +52,5 @@ public class CensusAnalyser {
             throw new CensusAnalyserException(e.getMessage(),
                                               CensusAnalyserException.ExceptionType.NOT_A_CSV_TYPE_OR_HEADERS_INVALID);
         }
-    }
+    }*/
 }
