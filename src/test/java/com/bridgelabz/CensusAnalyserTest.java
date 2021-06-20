@@ -8,9 +8,11 @@ import org.junit.rules.ExpectedException;
 
 public class CensusAnalyserTest {
 
-    private static final String CORRECT_FILE_PATH = "./src/test/resources/IndiaStateCensusData.csv";
-    private static final String WRONG_FILE_PATH = "./src/main/resources/IndiaStateCensusData.csv";
+    private static final String CORRECT_FILE_PATH = "C:\\Users\\SalmaN\\IdeaProjects\\CensusAnalyser\\src\\test\\resources";
+    private static final String WRONG_FILE_PATH = "C:\\Users\\SalmaN\\IdeaProjects\\CensusAnalyser\\src\\main\\resources";
     private static final String WRONG_CSV_TYPE = "./src/test/resources/wrongFile.txt";
+    private static final String STATE_CODE_FILE_PATH = "\"C:\\Users\\SalmaN\\IdeaProjects\\CensusAnalyser\\src\\test\\resources\\IndianStateCode.csv\"";
+
 
 
     @Test
@@ -33,7 +35,7 @@ public class CensusAnalyserTest {
             censusAnalyser.loadIndiaCensusData(WRONG_FILE_PATH);
         } catch (CensusAnalyserException e) {
             System.out.println(e.type);
-            Assert.assertEquals(CensusAnalyserException.ExceptionType.NOT_A_CSV_TYPE,e.type);
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.FILE_PROBLEM,e.type);
         }
     }
     @Test
@@ -45,6 +47,18 @@ public class CensusAnalyserTest {
             censusAnalyser.loadIndiaCensusData(WRONG_CSV_TYPE);
         }catch (CensusAnalyserException e){
             Assert.assertEquals(CensusAnalyserException.ExceptionType.NOT_A_CSV_TYPE,e.type);
+        }
+    }
+
+    @Test
+    public void givenIndiaCensusData_WhenDelimiterIncorrect_ShouldThrowException() {
+        try{
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            ExpectedException exceptionRule = ExpectedException.none();
+            exceptionRule.expect(CensusAnalyserException.class);
+            censusAnalyser.loadIndiaCensusData(STATE_CODE_FILE_PATH);
+        }catch(CensusAnalyserException  e){
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.NOT_A_CSV_TYPE_OR_HEADERS_INVALID,e.type);
         }
     }
 }
