@@ -3,7 +3,7 @@ com/bridgelabz/IndianCensusCSV.java
 com/bridgelabz/CensusAnalyserException.java
  com.bridgelabz.CensusAnalyserException
  com.bridgelabz.CensusAnalyserException$ExceptionType
-com/bridgelabz/CensusAnalyser.java
- com.bridgelabz.CensusAnalyser
 com/bridgelabz/IndianStateCode.java
  com.bridgelabz.IndianStateCode
+com/bridgelabz/CensusAnalyser.java
+ com.bridgelabz.CensusAnalyser

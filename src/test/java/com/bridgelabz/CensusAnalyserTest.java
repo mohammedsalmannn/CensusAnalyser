@@ -70,4 +70,16 @@ public class CensusAnalyserTest {
             Assert.assertEquals(37,numOfRecords);
         } catch (CensusAnalyserException e) { }
     }
+
+    @Test
+    public void givenIndiaStateCode_WhenWrongType_ShouldThrowException() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            ExpectedException exceptionRule = ExpectedException.none();
+            exceptionRule.expect(CensusAnalyserException.class);
+            censusAnalyser.loadIndiaStateCode(WRONG_CSV_TYPE);
+        }catch (CensusAnalyserException e){
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.NOT_A_CSV_TYPE_OR_HEADERS_INVALID, e.type);
+        }
+    }
 }
